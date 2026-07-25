@@ -33,13 +33,26 @@
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:760px;margin:0 auto;padding:36px 20px 60px;}
+
+  /* page shell: left rail | content | right rail */
+  .page-shell{display:flex;justify-content:center;align-items:flex-start;gap:20px;padding-top:36px;}
+  .rail{
+    flex:0 0 160px;width:160px;position:sticky;top:36px;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .rail .ad-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);opacity:0.6;}
+  .rail .ad-slot{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px;}
+  @media (max-width: 1180px){ .rail{display:none;} }
+
+  .wrap{max-width:760px;width:100%;margin:0 auto;padding:0 20px 60px;}
 
   /* header */
   header{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px;}
   .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;letter-spacing:0.02em;color:var(--ink-dim);}
   .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--jade);box-shadow:0 0 8px var(--jade);}
+  .header-right{display:flex;align-items:center;gap:16px;}
   .locale{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-dim);letter-spacing:0.08em;text-transform:uppercase;}
+  nav a{font-family:'Space Mono',monospace;font-size:11px;color:var(--amber);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;}
 
   /* hero */
   .eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin:0 0 10px;}
@@ -128,7 +141,21 @@
   .note{margin-top:34px;font-size:13px;color:var(--ink-dim);line-height:1.7;text-align:center;}
   .note a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-dim);}
 
-  footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ink-dim);}
+  /* in-content native banner slot */
+  .native-slot{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);}
+  .native-slot .ad-label{display:block;text-align:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);opacity:0.6;margin-bottom:8px;}
+
+  /* leaderboard slot above footer */
+  .leaderboard-slot{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .leaderboard-slot .ad-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);opacity:0.6;}
+  .lb-728{display:block;}
+  .lb-468{display:none;}
+  @media (max-width: 760px){
+    .lb-728{display:none;}
+    .lb-468{display:block;}
+  }
+
+  footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ink-dim);}
   footer a{color:var(--ink-dim);}
   .sponsor{font-size:11px;color:var(--ink-dim);opacity:0.7;}
   .sponsor a{color:var(--ink-dim);}
@@ -144,58 +171,128 @@
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <div class="brand"><span class="dot"></span> LIVING IN SOUTHEAST ASIA</div>
-    <div class="locale" id="locale">CHECKING GATE…</div>
-  </header>
+<div class="page-shell">
 
-  <p class="eyebrow">Wifi check, before you commit to the coworking desk</p>
-  <h1>Is this connection good enough to work from?</h1>
-  <p class="sub">Run it from any guesthouse, café, or coworking space across Southeast Asia. Real download, upload, and ping — measured live, no app required.</p>
-
-  <div class="board">
-    <div class="board-row">
-      <div class="flip-unit" id="mainDigit">0</div>
-      <span class="unit-label">Mbps ↓</span>
+  <aside class="rail rail-left">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-slot" id="ad-rail-left">
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '08ca5d5e4eea20f3b74395476e909571',
+          'format' : 'iframe',
+          'height' : 300,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://yawncollaremotion.com/08ca5d5e4eea20f3b74395476e909571/invoke.js"></script>
     </div>
-    <div class="gate-status" id="gateStatus">PRESS START TO CHECK IN</div>
+  </aside>
+
+  <div class="wrap">
+
+    <header>
+      <div class="brand"><span class="dot"></span> LIVING IN SOUTHEAST ASIA</div>
+      <div class="header-right">
+        <nav><a href="/blog/">Blog</a></nav>
+        <div class="locale" id="locale">CHECKING GATE…</div>
+      </div>
+    </header>
+
+    <p class="eyebrow">Wifi check, before you commit to the coworking desk</p>
+    <h1>Is this connection good enough to work from?</h1>
+    <p class="sub">Run it from any guesthouse, café, or coworking space across Southeast Asia. Real download, upload, and ping — measured live, no app required.</p>
+
+    <div class="board">
+      <div class="board-row">
+        <div class="flip-unit" id="mainDigit">0</div>
+        <span class="unit-label">Mbps ↓</span>
+      </div>
+      <div class="gate-status" id="gateStatus">PRESS START TO CHECK IN</div>
+    </div>
+
+    <div class="control">
+      <button class="go" id="goBtn">Start Test</button>
+    </div>
+
+    <div class="tickets">
+      <div class="ticket">
+        <div class="ticket-label">Ping</div>
+        <div class="ticket-value"><span id="pingVal">—</span><span class="ticket-unit">ms</span></div>
+      </div>
+      <div class="ticket">
+        <div class="ticket-label">Download</div>
+        <div class="ticket-value"><span id="dlVal">—</span><span class="ticket-unit">Mbps</span></div>
+      </div>
+      <div class="ticket">
+        <div class="ticket-label">Upload</div>
+        <div class="ticket-value"><span id="ulVal">—</span><span class="ticket-unit">Mbps</span></div>
+      </div>
+    </div>
+
+    <p class="note">Rule of thumb on the road: <strong>5+ Mbps</strong> handles calls and messaging, <strong>25+ Mbps</strong> is safe for video calls and cloud uploads, <strong>100+ Mbps</strong> means don't even think twice.</p>
+
+    <div class="native-slot">
+      <span class="ad-label">Advertisement</span>
+      <div id="container-30be3922322c8ff89d8adff4f4f9a2df"></div>
+      <script async="async" data-cfasync="false" src="https://yawncollaremotion.com/30be3922322c8ff89d8adff4f4f9a2df/invoke.js"></script>
+    </div>
+
+    <div class="leaderboard-slot">
+      <span class="ad-label">Advertisement</span>
+      <div class="lb-728" id="ad-leaderboard-728">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : 'e31e75683d94d5ba13137182e4401323',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://yawncollaremotion.com/e31e75683d94d5ba13137182e4401323/invoke.js"></script>
+      </div>
+      <div class="lb-468" id="ad-leaderboard-468">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : 'f0261d57ee34bf484e8d403652e878de',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        </script>
+        <script src="https://yawncollaremotion.com/f0261d57ee34bf484e8d403652e878de/invoke.js"></script>
+      </div>
+    </div>
+
+    <footer>
+      <span>© Living in Southeast Asia</span>
+    </footer>
+
   </div>
 
-  <div class="control">
-    <button class="go" id="goBtn">Start Test</button>
-  </div>
-
-  <div class="tickets">
-    <div class="ticket">
-      <div class="ticket-label">Ping</div>
-      <div class="ticket-value"><span id="pingVal">—</span><span class="ticket-unit">ms</span></div>
+  <aside class="rail rail-right">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-slot" id="ad-rail-right">
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '08ca5d5e4eea20f3b74395476e909571',
+          'format' : 'iframe',
+          'height' : 300,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://yawncollaremotion.com/08ca5d5e4eea20f3b74395476e909571/invoke.js"></script>
     </div>
-    <div class="ticket">
-      <div class="ticket-label">Download</div>
-      <div class="ticket-value"><span id="dlVal">—</span><span class="ticket-unit">Mbps</span></div>
-    </div>
-    <div class="ticket">
-      <div class="ticket-label">Upload</div>
-      <div class="ticket-value"><span id="ulVal">—</span><span class="ticket-unit">Mbps</span></div>
-    </div>
-  </div>
-
-  <p class="note">Rule of thumb on the road: <strong>5+ Mbps</strong> handles calls and messaging, <strong>25+ Mbps</strong> is safe for video calls and cloud uploads, <strong>100+ Mbps</strong> means don't even think twice.</p>
-
-  <footer>
-    <span>© Living in Southeast Asia</span>
-    <span class="sponsor">Sponsored link: <a id="sponsorLink" href="#" target="_blank" rel="noopener">today's offer</a></span>
-  </footer>
+  </aside>
 
 </div>
 
 <script>
 (function(){
-  const MONETAG_URL = "https://omg10.com/4/11183651";
-  document.getElementById('sponsorLink').href = MONETAG_URL;
-
   const goBtn = document.getElementById('goBtn');
   const mainDigit = document.getElementById('mainDigit');
   const gateStatus = document.getElementById('gateStatus');
@@ -203,14 +300,6 @@
   const dlVal = document.getElementById('dlVal');
   const ulVal = document.getElementById('ulVal');
   const localeEl = document.getElementById('locale');
-
-  let monetagOpenedThisSession = false;
-
-  function openSponsor(){
-    if(monetagOpenedThisSession) return;
-    monetagOpenedThisSession = true;
-    try{ window.open(MONETAG_URL, '_blank', 'noopener'); }catch(e){}
-  }
 
   function setMainDigit(val){
     mainDigit.textContent = val;
@@ -236,7 +325,6 @@
     }
   }
 
-  // rough locale/timezone label, purely cosmetic
   try{
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
     localeEl.textContent = tz ? tz.split('/').pop().replace(/_/g,' ').toUpperCase() : 'ON THE ROAD';
@@ -250,17 +338,17 @@
       const start = performance.now();
       try{
         await fetch('https://speed.cloudflare.com/__down?bytes=0&cache=' + Math.random(), {cache:'no-store', mode:'cors'});
-      }catch(e){ /* skip failed sample */ }
+      }catch(e){}
       times.push(performance.now() - start);
     }
-    const usable = times.slice(1).length ? times.slice(1) : times; // drop first (handshake) if we have more than one
+    const usable = times.slice(1).length ? times.slice(1) : times;
     const avg = mean(usable);
     const jitter = usable.length > 1 ? mean(usable.map((t,i)=> i>0 ? Math.abs(t-usable[i-1]) : 0).slice(1)) : 0;
     return { ping: avg, jitter };
   }
 
   async function testDownload(onProgress){
-    const sizes = [2e6, 5e6, 10e6, 25e6]; // bytes, escalating
+    const sizes = [2e6, 5e6, 10e6, 25e6];
     let totalBytes = 0, totalTime = 0;
     for(const size of sizes){
       const start = performance.now();
@@ -323,14 +411,10 @@
     gateStatus.classList.remove('live','slow');
     gateStatus.textContent = 'CHECKING IN…';
 
-    openSponsor();
-
-    // ping
     gateStatus.textContent = 'MEASURING PING…';
     const {ping, jitter} = await testPing();
     pingVal.textContent = ping ? Math.round(ping) : '—';
 
-    // download
     gateStatus.textContent = 'MEASURING DOWNLOAD…';
     const dl = await testDownload((mbps)=>{
       setMainDigit(Math.round(mbps));
@@ -340,7 +424,6 @@
     dlVal.textContent = Math.round(dl);
     setGateStatus(dl);
 
-    // upload
     gateStatus.textContent = 'MEASURING UPLOAD…';
     const ul = await testUpload((mbps)=>{
       ulVal.textContent = Math.round(mbps);
@@ -355,5 +438,6 @@
   goBtn.addEventListener('click', runTest);
 })();
 </script>
+
 </body>
 </html>
