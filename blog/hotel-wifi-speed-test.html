@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is Hotel Wifi Fast Enough to Work From? How to Check Before You Unpack</title>
+<meta name="description" content="Hotel wifi looks fine on the listing, then falls apart on your first call. Here's how to actually test it, what Mbps you need, and what to do if it's too slow.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#0D1A22;
+    --bg-1:#132630;
+    --panel:#152A34;
+    --ink:#EAF2EF;
+    --ink-dim:#9FB4B0;
+    --amber:#E8A33D;
+    --amber-dim:#8a6a30;
+    --jade:#4FBF9F;
+    --coral:#E2604F;
+    --line:rgba(234,242,239,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232,163,61,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 600px at 100% 10%, rgba(79,191,159,0.08), transparent 55%),
+      linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, var(--bg-0));
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:700px;margin:0 auto;padding:36px 20px 60px;}
+
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;letter-spacing:0.02em;color:var(--ink-dim);text-decoration:none;}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--jade);box-shadow:0 0 8px var(--jade);}
+  nav a{font-family:'Space Mono',monospace;font-size:12px;color:var(--amber);text-decoration:none;letter-spacing:0.04em;}
+
+  .eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin:0 0 10px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,5vw,38px);line-height:1.2;margin:0 0 14px;letter-spacing:-0.01em;}
+  .dek{font-size:16px;color:var(--ink-dim);line-height:1.7;margin:0 0 32px;}
+
+  article{font-size:16px;line-height:1.75;color:var(--ink);}
+  article h2{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;margin:38px 0 14px;color:var(--ink);}
+  article p{margin:0 0 18px;color:#D6E3E0;}
+  article ul{margin:0 0 18px;padding-left:20px;color:#D6E3E0;}
+  article li{margin-bottom:8px;}
+  article strong{color:var(--amber);font-weight:600;}
+
+  .cta-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 24px;
+    margin:34px 0;
+    text-align:center;
+  }
+  .cta-card p{color:var(--ink-dim);margin:0 0 16px;font-size:14px;}
+  .cta-btn{
+    display:inline-block;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;font-size:15px;
+    background:var(--amber);color:#1A1206;
+    border-radius:999px;
+    padding:13px 28px;text-decoration:none;
+    box-shadow:0 12px 24px -10px rgba(232,163,61,0.5);
+  }
+
+  .table-wrap{overflow-x:auto;margin:0 0 24px;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);}
+  th{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-dim);}
+  td{color:#D6E3E0;}
+  td.tier{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--amber);}
+
+  footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ink-dim);}
+  footer a{color:var(--ink-dim);}
+  .sponsor{font-size:11px;color:var(--ink-dim);opacity:0.7;}
+  .sponsor a{color:var(--ink-dim);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <a class="brand" href="/"><span class="dot"></span> WIFICHAT</a>
+    <nav><a href="/">← Run the speed test</a></nav>
+  </header>
+
+  <p class="eyebrow">Before you unpack</p>
+  <h1>Is Hotel Wifi Fast Enough to Work From?</h1>
+  <p class="dek">The listing said "free high-speed wifi." Your video call disagrees. Here's how to actually check before it costs you a client call — and what your options are if it fails.</p>
+
+  <article>
+    <p>Every hotel says its wifi is "high-speed." It's meaningless marketing copy — there's no standard, no verification, and often no idea on the hotel's end what "high-speed" even means. The only way to know if a room's connection can handle your work is to test it yourself, in the room, before you commit to staying somewhere for the week.</p>
+
+    <h2>What to actually test</h2>
+    <p>Three numbers matter, and they matter for different reasons:</p>
+    <ul>
+      <li><strong>Download speed</strong> — how fast you can pull data. This is what most sites measure, and what handles streaming, page loads, and downloading files.</li>
+      <li><strong>Upload speed</strong> — how fast you can send data. This is the one that actually kills video calls and cloud uploads, and it's almost always slower than download on hotel networks, sometimes drastically.</li>
+      <li><strong>Ping (latency)</strong> — how long a signal takes to round-trip. High ping makes calls laggy and choppy even when the raw speed numbers look fine.</li>
+    </ul>
+
+    <div class="cta-card">
+      <p>Run a live check right now — download, upload, and ping in about 15 seconds.</p>
+      <a class="cta-btn" href="/">Test This Room's Wifi →</a>
+    </div>
+
+    <h2>What the numbers actually mean</h2>
+    <p>Rough thresholds worth knowing, based on what each speed tier can realistically handle:</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Speed</th><th>What it's good for</th></tr>
+        <tr><td class="tier">Under 5 Mbps</td><td>Messaging, email, browsing. Video calls will struggle.</td></tr>
+        <tr><td class="tier">5–25 Mbps</td><td>Voice calls reliably, video calls in a pinch, light browsing.</td></tr>
+        <tr><td class="tier">25–100 Mbps</td><td>HD video calls, cloud uploads, streaming without buffering.</td></tr>
+        <tr><td class="tier">100+ Mbps</td><td>Multiple devices, large uploads, 4K streaming — no compromises.</td></tr>
+      </table>
+    </div>
+
+    <p>If you're doing client calls or uploading large files for work, treat 25 Mbps download as the real minimum — and check the upload number just as closely, since that's usually where hotel wifi quietly falls apart.</p>
+
+    <h2>Why hotel wifi is inconsistent even within the same hotel</h2>
+    <p>A test done at the front desk or lobby often looks nothing like what you get in a room three floors up. Hotel networks are frequently oversubscribed — one router serving far more devices than it was built for — and get slower in the evening when every guest is streaming at once. Thick walls, distance from the router, and how many other rooms are connected all shift the number room to room, hour to hour.</p>
+    <p>That's the real reason a listing's promise doesn't mean much: it's usually true under ideal conditions that rarely match yours.</p>
+
+    <h2>If the test comes back slow</h2>
+    <ul>
+      <li><strong>Ask for a room closer to the router</strong> — front desks often know which floors or room ranges get the strongest signal.</li>
+      <li><strong>Check for a wired ethernet port.</strong> Many hotels still have one in the room, and a cable connection is almost always faster and more stable than wifi.</li>
+      <li><strong>Test at different times of day.</strong> Early morning, before most guests are awake, is usually the fastest window.</li>
+      <li><strong>Have a backup.</strong> A local SIM with a decent data plan or a mobile hotspot can save an important call when hotel wifi won't cooperate.</li>
+    </ul>
+
+    <p>The habit worth building: test the wifi the moment you get to the room, not after you've already unpacked and settled in. Two minutes with a speed check tells you whether you need to make a call to the front desk — or a backup plan — before it actually matters.</p>
+  </article>
+
+  <footer>
+    <span>© Living in Southeast Asia</span>
+    <span class="sponsor">Sponsored link: <a id="sponsorLink" href="https://omg10.com/4/11183651" target="_blank" rel="noopener">today's offer</a></span>
+  </footer>
+
+</div>
+</body>
+</html>
