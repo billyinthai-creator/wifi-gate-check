@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gate Speed — Connection Test for Southeast Asia Travelers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#0D1A22;
+    --bg-1:#132630;
+    --panel:#152A34;
+    --slat:#0A161D;
+    --ink:#EAF2EF;
+    --ink-dim:#9FB4B0;
+    --amber:#E8A33D;
+    --amber-dim:#8a6a30;
+    --jade:#4FBF9F;
+    --coral:#E2604F;
+    --line:rgba(234,242,239,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232,163,61,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 600px at 100% 10%, rgba(79,191,159,0.08), transparent 55%),
+      linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, var(--bg-0));
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* page shell: left rail | content | right rail */
+  .page-shell{display:flex;justify-content:center;align-items:flex-start;gap:20px;padding-top:36px;}
+  .rail{
+    flex:0 0 160px;width:160px;position:sticky;top:36px;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .rail .ad-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);opacity:0.6;}
+  .rail .ad-slot{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px;}
+  @media (max-width: 1180px){ .rail{display:none;} }
+
+  .wrap{max-width:760px;width:100%;margin:0 auto;padding:0 20px 60px;}
+
+  /* header */
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;letter-spacing:0.02em;color:var(--ink-dim);}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--jade);box-shadow:0 0 8px var(--jade);}
+  .header-right{display:flex;align-items:center;gap:16px;}
+  .locale{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-dim);letter-spacing:0.08em;text-transform:uppercase;}
+  nav a{font-family:'Space Mono',monospace;font-size:11px;color:var(--amber);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;}
+
+  /* hero */
+  .eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin:0 0 10px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0 0 12px;letter-spacing:-0.01em;}
+  .sub{font-size:15px;color:var(--ink-dim);max-width:52ch;margin:0 0 32px;line-height:1.6;}
+
+  /* departure board */
+  .board{
+    background:linear-gradient(180deg, #10222B, #0C1B22);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 24px 22px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+    position:relative;
+    overflow:hidden;
+  }
+  .board::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(180deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+  }
+  .board-row{display:flex;align-items:baseline;justify-content:center;gap:6px;position:relative;z-index:1;}
+  .flip-unit{
+    background:var(--slat);
+    border-radius:6px;
+    padding:6px 4px;
+    min-width:64px;
+    text-align:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(46px,13vw,86px);
+    line-height:1;
+    color:var(--amber);
+    text-shadow:0 0 18px rgba(232,163,61,0.35);
+    border-top:1px solid rgba(255,255,255,0.06);
+    border-bottom:1px solid rgba(0,0,0,0.5);
+    transition:color 0.4s ease;
+  }
+  .flip-unit.settling{ animation:flicker 0.12s steps(2) 3; }
+  @keyframes flicker{ 50%{opacity:0.55;} }
+  .unit-label{font-family:'Space Mono',monospace;font-size:14px;color:var(--ink-dim);align-self:flex-end;padding-bottom:10px;}
+
+  .gate-status{
+    text-align:center;margin-top:16px;position:relative;z-index:1;
+    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--ink-dim);
+    min-height:18px;
+  }
+  .gate-status.live{color:var(--jade);}
+  .gate-status.slow{color:var(--coral);}
+
+  /* start control */
+  .control{display:flex;justify-content:center;margin:26px 0 8px;}
+  button.go{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;font-size:16px;
+    background:var(--amber);color:#1A1206;
+    border:none;border-radius:999px;
+    padding:15px 34px;cursor:pointer;
+    letter-spacing:0.02em;
+    box-shadow:0 12px 24px -10px rgba(232,163,61,0.5);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  button.go:hover{transform:translateY(-1px);box-shadow:0 16px 30px -10px rgba(232,163,61,0.6);}
+  button.go:active{transform:translateY(0);}
+  button.go:disabled{opacity:0.55;cursor:default;transform:none;}
+  button.go:focus-visible{outline:2px solid var(--jade);outline-offset:3px;}
+
+  /* tickets */
+  .tickets{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px;}
+  .ticket{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 14px;
+    position:relative;
+  }
+  .ticket::after{
+    content:"";position:absolute;left:0;right:0;bottom:34px;
+    border-top:1px dashed var(--line);
+  }
+  .ticket-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:44px;}
+  .ticket-value{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;color:var(--ink);}
+  .ticket-unit{font-size:12px;color:var(--ink-dim);margin-left:4px;}
+
+  .note{margin-top:34px;font-size:13px;color:var(--ink-dim);line-height:1.7;text-align:center;}
+  .note a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-dim);}
+
+  /* in-content native banner slot */
+  .native-slot{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);}
+  .native-slot .ad-label{display:block;text-align:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);opacity:0.6;margin-bottom:8px;}
+
+  /* leaderboard slot above footer */
+  .leaderboard-slot{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .leaderboard-slot .ad-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);opacity:0.6;}
+  .lb-728{display:block;}
+  .lb-468{display:none;}
+  @media (max-width: 760px){
+    .lb-728{display:none;}
+    .lb-468{display:block;}
+  }
+
+  footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ink-dim);}
+  footer a{color:var(--ink-dim);}
+  .sponsor{font-size:11px;color:var(--ink-dim);opacity:0.7;}
+  .sponsor a{color:var(--ink-dim);}
+
+  @media (max-width:520px){
+    .tickets{grid-template-columns:1fr;}
+    .flip-unit{min-width:0;flex:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .flip-unit.settling{animation:none;}
+    button.go{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="page-shell">
+
+  <aside class="rail rail-left">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-slot" id="ad-rail-left">
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '08ca5d5e4eea20f3b74395476e909571',
+          'format' : 'iframe',
+          'height' : 300,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://yawncollaremotion.com/08ca5d5e4eea20f3b74395476e909571/invoke.js"></script>
+    </div>
+  </aside>
+
+  <div class="wrap">
+
+    <header>
+      <div class="brand"><span class="dot"></span> LIVING IN SOUTHEAST ASIA</div>
+      <div class="header-right">
+        <nav><a href="/blog/">Blog</a></nav>
+        <div class="locale" id="locale">CHECKING GATE…</div>
+      </div>
+    </header>
+
+    <p class="eyebrow">Wifi check, before you commit to the coworking desk</p>
+    <h1>Is this connection good enough to work from?</h1>
+    <p class="sub">Run it from any guesthouse, café, or coworking space across Southeast Asia. Real download, upload, and ping — measured live, no app required.</p>
+
+    <div class="board">
+      <div class="board-row">
+        <div class="flip-unit" id="mainDigit">0</div>
+        <span class="unit-label">Mbps ↓</span>
+      </div>
+      <div class="gate-status" id="gateStatus">PRESS START TO CHECK IN</div>
+    </div>
+
+    <div class="control">
+      <button class="go" id="goBtn">Start Test</button>
+    </div>
+
+    <div class="tickets">
+      <div class="ticket">
+        <div class="ticket-label">Ping</div>
+        <div class="ticket-value"><span id="pingVal">—</span><span class="ticket-unit">ms</span></div>
+      </div>
+      <div class="ticket">
+        <div class="ticket-label">Download</div>
+        <div class="ticket-value"><span id="dlVal">—</span><span class="ticket-unit">Mbps</span></div>
+      </div>
+      <div class="ticket">
+        <div class="ticket-label">Upload</div>
+        <div class="ticket-value"><span id="ulVal">—</span><span class="ticket-unit">Mbps</span></div>
+      </div>
+    </div>
+
+    <p class="note">Rule of thumb on the road: <strong>5+ Mbps</strong> handles calls and messaging, <strong>25+ Mbps</strong> is safe for video calls and cloud uploads, <strong>100+ Mbps</strong> means don't even think twice.</p>
+
+    <div class="native-slot">
+      <span class="ad-label">Advertisement</span>
+      <div id="container-30be3922322c8ff89d8adff4f4f9a2df"></div>
+      <script async="async" data-cfasync="false" src="https://yawncollaremotion.com/30be3922322c8ff89d8adff4f4f9a2df/invoke.js"></script>
+    </div>
+
+    <div class="leaderboard-slot">
+      <span class="ad-label">Advertisement</span>
+      <div class="lb-728" id="ad-leaderboard-728">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : 'e31e75683d94d5ba13137182e4401323',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://yawncollaremotion.com/e31e75683d94d5ba13137182e4401323/invoke.js"></script>
+      </div>
+      <div class="lb-468" id="ad-leaderboard-468">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : 'f0261d57ee34bf484e8d403652e878de',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        </script>
+        <script src="https://yawncollaremotion.com/f0261d57ee34bf484e8d403652e878de/invoke.js"></script>
+      </div>
+    </div>
+
+    <footer>
+      <span>© Living in Southeast Asia</span>
+    </footer>
+
+  </div>
+
+  <aside class="rail rail-right">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-slot" id="ad-rail-right">
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '08ca5d5e4eea20f3b74395476e909571',
+          'format' : 'iframe',
+          'height' : 300,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://yawncollaremotion.com/08ca5d5e4eea20f3b74395476e909571/invoke.js"></script>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+(function(){
+  const goBtn = document.getElementById('goBtn');
+  const mainDigit = document.getElementById('mainDigit');
+  const gateStatus = document.getElementById('gateStatus');
+  const pingVal = document.getElementById('pingVal');
+  const dlVal = document.getElementById('dlVal');
+  const ulVal = document.getElementById('ulVal');
+  const localeEl = document.getElementById('locale');
+
+  function setMainDigit(val){
+    mainDigit.textContent = val;
+    mainDigit.classList.remove('settling');
+    void mainDigit.offsetWidth;
+    mainDigit.classList.add('settling');
+  }
+
+  function setGateStatus(mbps){
+    gateStatus.classList.remove('live','slow');
+    if(mbps < 5){
+      gateStatus.textContent = 'GATE CLOSED — TEXT MESSAGES ONLY';
+      gateStatus.classList.add('slow');
+    } else if(mbps < 25){
+      gateStatus.textContent = 'BOARDING — VOICE CALLS FINE';
+      gateStatus.classList.add('live');
+    } else if(mbps < 100){
+      gateStatus.textContent = 'ON TIME — VIDEO CALLS & UPLOADS';
+      gateStatus.classList.add('live');
+    } else {
+      gateStatus.textContent = 'EARLY DEPARTURE — 4K, NO WAITING';
+      gateStatus.classList.add('live');
+    }
+  }
+
+  try{
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    localeEl.textContent = tz ? tz.split('/').pop().replace(/_/g,' ').toUpperCase() : 'ON THE ROAD';
+  }catch(e){ localeEl.textContent = 'ON THE ROAD'; }
+
+  function mean(arr){ return arr.reduce((a,b)=>a+b,0)/arr.length; }
+
+  async function testPing(samples=6){
+    const times = [];
+    for(let i=0;i<samples;i++){
+      const start = performance.now();
+      try{
+        await fetch('https://speed.cloudflare.com/__down?bytes=0&cache=' + Math.random(), {cache:'no-store', mode:'cors'});
+      }catch(e){}
+      times.push(performance.now() - start);
+    }
+    const usable = times.slice(1).length ? times.slice(1) : times;
+    const avg = mean(usable);
+    const jitter = usable.length > 1 ? mean(usable.map((t,i)=> i>0 ? Math.abs(t-usable[i-1]) : 0).slice(1)) : 0;
+    return { ping: avg, jitter };
+  }
+
+  async function testDownload(onProgress){
+    const sizes = [2e6, 5e6, 10e6, 25e6];
+    let totalBytes = 0, totalTime = 0;
+    for(const size of sizes){
+      const start = performance.now();
+      try{
+        const res = await fetch(`https://speed.cloudflare.com/__down?bytes=${size}&cache=${Math.random()}`, {cache:'no-store', mode:'cors'});
+        const reader = res.body.getReader();
+        let received = 0;
+        while(true){
+          const {done, value} = await reader.read();
+          if(done) break;
+          received += value.length;
+          const elapsed = (performance.now() - start) / 1000;
+          if(elapsed > 0){
+            const mbps = ((totalBytes + received) * 8) / elapsed / 1e6;
+            onProgress(mbps);
+          }
+        }
+        const elapsed = (performance.now() - start) / 1000;
+        totalBytes += received;
+        totalTime += elapsed;
+      }catch(e){
+        break;
+      }
+    }
+    if(totalTime === 0) return 0;
+    return (totalBytes * 8) / totalTime / 1e6;
+  }
+
+  function testUpload(onProgress){
+    return new Promise((resolve)=>{
+      const size = 6e6;
+      const data = new Blob([new Uint8Array(size)]);
+      const xhr = new XMLHttpRequest();
+      const start = performance.now();
+      xhr.open('POST', 'https://speed.cloudflare.com/__up', true);
+      xhr.upload.onprogress = (e)=>{
+        if(e.lengthComputable){
+          const elapsed = (performance.now() - start) / 1000;
+          if(elapsed > 0){
+            const mbps = (e.loaded * 8) / elapsed / 1e6;
+            onProgress(mbps);
+          }
+        }
+      };
+      xhr.onloadend = ()=>{
+        const elapsed = (performance.now() - start) / 1000;
+        const mbps = elapsed > 0 ? (size * 8) / elapsed / 1e6 : 0;
+        resolve(mbps);
+      };
+      xhr.onerror = ()=> resolve(0);
+      xhr.send(data);
+    });
+  }
+
+  async function runTest(){
+    goBtn.disabled = true;
+    goBtn.textContent = 'Testing…';
+    pingVal.textContent = '—'; dlVal.textContent = '—'; ulVal.textContent = '—';
+    setMainDigit('0');
+    gateStatus.classList.remove('live','slow');
+    gateStatus.textContent = 'CHECKING IN…';
+
+    gateStatus.textContent = 'MEASURING PING…';
+    const {ping, jitter} = await testPing();
+    pingVal.textContent = ping ? Math.round(ping) : '—';
+
+    gateStatus.textContent = 'MEASURING DOWNLOAD…';
+    const dl = await testDownload((mbps)=>{
+      setMainDigit(Math.round(mbps));
+      dlVal.textContent = Math.round(mbps);
+    });
+    setMainDigit(Math.round(dl));
+    dlVal.textContent = Math.round(dl);
+    setGateStatus(dl);
+
+    gateStatus.textContent = 'MEASURING UPLOAD…';
+    const ul = await testUpload((mbps)=>{
+      ulVal.textContent = Math.round(mbps);
+    });
+    ulVal.textContent = Math.round(ul);
+
+    setGateStatus(dl);
+    goBtn.disabled = false;
+    goBtn.textContent = 'Test Again';
+  }
+
+  goBtn.addEventListener('click', runTest);
+})();
+</script>
+
+</body>
+</html>
