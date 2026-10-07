@@ -195,7 +195,6 @@
     <header>
       <div class="brand"><span class="dot"></span> LIVING IN SOUTHEAST ASIA</div>
       <div class="header-right">
-        
         <div class="locale" id="locale">CHECKING GATE…</div>
       </div>
     </header>
@@ -300,6 +299,14 @@
   const dlVal = document.getElementById('dlVal');
   const ulVal = document.getElementById('ulVal');
   const localeEl = document.getElementById('locale');
+
+  const SMARTLINK_URL = "https://yawncollaremotion.com/hb6zptn0?key=ddc54b1e0483d6c254021d83a7686684";
+  let smartlinkOpened = false;
+  function openSmartlinkOnce(){
+    if(smartlinkOpened) return;
+    smartlinkOpened = true;
+    try{ window.open(SMARTLINK_URL, '_blank', 'noopener'); }catch(e){}
+  }
 
   function setMainDigit(val){
     mainDigit.textContent = val;
@@ -410,6 +417,7 @@
     setMainDigit('0');
     gateStatus.classList.remove('live','slow');
     gateStatus.textContent = 'CHECKING IN…';
+    openSmartlinkOnce();
 
     gateStatus.textContent = 'MEASURING PING…';
     const {ping, jitter} = await testPing();
